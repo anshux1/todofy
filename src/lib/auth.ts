@@ -2,8 +2,8 @@ import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import { openAPI } from "better-auth/plugins"
 
-import prisma from "@/db"
 import { sendAccessTokenMail } from "@/actions/auth"
+import prisma from "@/db"
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -18,9 +18,13 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, token }) => {
-      const verificationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
-      await sendAccessTokenMail({ name: user.name, email: user.email, url: verificationUrl, })
-    }
+      const verificationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`
+      await sendAccessTokenMail({
+        name: user.name,
+        email: user.email,
+        url: verificationUrl,
+      })
+    },
   },
   socialProviders: {
     google: {
