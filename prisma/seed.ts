@@ -6,9 +6,12 @@ async function seedUsers() {
       where: { email: "example@gmail.com" },
       update: { email: "example@gmail.com" },
       create: {
+        emailVerified: false,
         email: "example@gmail.com",
-        password: "1234",
         name: "example",
+        id: "asdfabegf",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     })
   } catch (error) {
