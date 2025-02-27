@@ -146,7 +146,7 @@ export function DateField<F extends FieldValues>(props: {
                   )}
                   disabled={props.disabled}
                 >
-                  <CalendarIcon className="ml-0 mr-2 size-4 opacity-50" />
+                  <CalendarIcon className="mr-2 ml-0 size-4 opacity-50" />
                   {field.value ? (
                     format(field.value, "PPP")
                   ) : (
@@ -202,7 +202,7 @@ export function SelectField<F extends FieldValues>(props: {
               defaultValue={field.value}
               disabled={props.disabled}
             >
-              <SelectTrigger className="my-0 min-w-[160px] max-w-lg">
+              <SelectTrigger className="my-0 max-w-lg min-w-[160px]">
                 <SelectValue placeholder={props.placeholder} />
               </SelectTrigger>
               <SelectContent>
@@ -248,7 +248,7 @@ export function PasswordField<F extends FieldValues>(props: {
           required
         />
         <button
-          className="absolute inset-y-3 end-0 flex h-full w-9 items-center justify-center rounded-e-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:text-foreground focus:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="text-muted-foreground/80 hover:text-foreground focus-visible:outline-ring/70 absolute inset-y-3 end-0 flex h-full w-9 items-center justify-center rounded-e-lg outline-offset-2 transition-colors focus:z-10 focus-visible:outline focus-visible:outline-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
           type="button"
           onClick={toggleVisibility}
           aria-label={isVisible ? "Hide password" : "Show password"}
@@ -264,7 +264,7 @@ export function PasswordField<F extends FieldValues>(props: {
         {props.showForgotPassword && (
           <Link
             href="/forgot-password"
-            className="absolute -bottom-5 right-0 mr-auto inline-block text-xs underline-offset-4 hover:underline"
+            className="absolute right-0 -bottom-5 mr-auto inline-block text-xs underline-offset-4 hover:underline"
           >
             Forgot your password?
           </Link>

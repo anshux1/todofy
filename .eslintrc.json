@@ -3,10 +3,9 @@
     "next/core-web-vitals",
     "next/typescript",
     "prettier",
-    "plugin:prettier/recommended",
-    "plugin:tailwindcss/recommended"
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["tailwindcss", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "tailwindcss/no-custom-classname": "off"
