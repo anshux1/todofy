@@ -1,12 +1,12 @@
 import z from "zod"
 
+const passwordSchema = z.string().min(6, "Must be atleast 6 characters")
+
 export const signinSchema = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
-  password: z.string().min(1, {
-    message: "Password is required",
-  }),
+  password: passwordSchema,
 })
 
 export const signupSchema = signinSchema.extend({
@@ -18,3 +18,14 @@ export const AccessTokenSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
   url: z.string().url({ message: "URL is required" }),
 })
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: "Invalid email!" }),
+})
+
+export const resetPasswordSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .refine((item) => item.password === item.confirmPassword)
