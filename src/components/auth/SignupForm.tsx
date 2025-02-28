@@ -70,7 +70,12 @@ export const SignupForm = () => {
           label="Password"
           placeholder="Password"
         />
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
+        <Button
+          size="lg"
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Please Wait" : "Sign Up"}
         </Button>
       </form>

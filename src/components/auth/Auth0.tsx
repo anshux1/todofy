@@ -29,6 +29,7 @@ export const Auth0 = () => {
     <div className="grid gap-6">
       <div className="flex flex-col gap-4">
         <Button
+          size="lg"
           type="submit"
           variant="outline"
           className="w-full"
@@ -43,6 +44,7 @@ export const Auth0 = () => {
           Login with Google
         </Button>
         <Button
+          size="lg"
           type="submit"
           variant="outline"
           className="w-full"
@@ -50,13 +52,15 @@ export const Auth0 = () => {
         >
           <Image
             src="/social/twitter.svg"
-            alt="Google logo"
+            alt="Twitter logo"
             width={20}
             height={20}
+            className="dark:invert"
           />
           Login with X
         </Button>
         <Button
+          size="lg"
           type="submit"
           variant="outline"
           className="w-full"
@@ -64,9 +68,10 @@ export const Auth0 = () => {
         >
           <Image
             src="/social/github.svg"
-            alt="Google logo"
+            alt="Github logo"
             width={20}
             height={20}
+            className="dark:invert"
           />
           Login with Github
         </Button>

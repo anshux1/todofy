@@ -59,7 +59,6 @@ export const SigninForm = () => {
           name="password"
           label="Password"
           placeholder="Password"
-          showForgotPassword
         />
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Please wait" : "Sign In"}
