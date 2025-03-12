@@ -23,6 +23,9 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  projects      Project[] @relation("ProjectOwner")
+  tasks         Task[]    @relation("Taskcreator")
+  assignedTasks Task[]    @relation("assigned_to")
 
   @@unique([email])
   @@map("user")
@@ -71,4 +74,65 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Project {
+  id               String   @id @default(uuid())
+  can_assign_tasks Boolean
+  child_order      Int
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  default_order    Int
+  description      String?
+  is_archived      Boolean
+  is_deleted       Boolean
+  is_favorite      Boolean
+  is_frozen        Boolean
+  name             String
+  parent_id        String?
+  shared           Boolean
+  task             Task[]
+
+  owner    User   @relation("ProjectOwner", fields: [owner_id], references: [id])
+  owner_id String
+
+  parent        Project?  @relation("ParentProject", fields: [parent_id], references: [id])
+  childProjects Project[] @relation("ParentProject")
+
+  @@index([owner_id, parent_id])
+}
+
+model Task {
+  id              String    @id @default(uuid())
+  added_by_uid    String
+  assigned_to_uid String
+  checked         Boolean
+  child_order     Int
+  content         String
+  deadline        DateTime?
+  duration        Int
+  is_deleted      Boolean
+  labels          String[]
+  priority        Int
+  project_id      String
+  due             Due?
+  added_at        DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  project     Project @relation(fields: [project_id], references: [id])
+  assigned_to User?   @relation("assigned_to", fields: [assigned_to_uid], references: [id])
+  added_by    User    @relation("Taskcreator", fields: [added_by_uid], references: [id])
+
+  @@index([project_id, added_by_uid, assigned_to_uid])
+}
+
+model Due {
+  id           String   @id @default(uuid())
+  date         DateTime
+  is_recurring Boolean
+  string       String
+  task_id      String   @unique
+  task         Task     @relation(fields: [task_id], references: [id])
+
+  @@index([task_id])
 }

@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { AddTask } from "./task/TaskAddForm"
 
 export function NavMain({
   items,
@@ -21,6 +22,11 @@ export function NavMain({
 }) {
   return (
     <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild className="p-0">
+          <AddTask />
+        </SidebarMenuButton>
+      </SidebarMenuItem>
       {items.map((item) => (
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton asChild isActive={item.isActive}>

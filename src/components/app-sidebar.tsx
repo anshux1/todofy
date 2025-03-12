@@ -5,13 +5,15 @@ import {
   AudioWaveform,
   Blocks,
   Calendar,
+  Calendar1,
+  CalendarDays,
+  CircleCheck,
   Command,
-  Home,
   Inbox,
   MessageCircleQuestion,
   Search,
   Settings2,
-  Sparkles,
+  Tag,
   Trash2,
 } from "lucide-react"
 
@@ -53,21 +55,30 @@ const data = {
       icon: Search,
     },
     {
-      title: "Ask AI",
-      url: "#",
-      icon: Sparkles,
-    },
-    {
-      title: "Home",
-      url: "#",
-      icon: Home,
-      isActive: true,
-    },
-    {
       title: "Inbox",
       url: "#",
       icon: Inbox,
       badge: "10",
+    },
+    {
+      title: "Today",
+      url: "#",
+      icon: Calendar1,
+    },
+    {
+      title: "Upcoming",
+      url: "#",
+      icon: CalendarDays,
+    },
+    {
+      title: "Filters & Labels",
+      url: "#",
+      icon: Tag,
+    },
+    {
+      title: "Completed",
+      url: "#",
+      icon: CircleCheck,
     },
   ],
   navSecondary: [
@@ -107,26 +118,6 @@ const data = {
       name: "Family Recipe Collection & Meal Planning",
       url: "#",
       emoji: "🍳",
-    },
-    {
-      name: "Fitness Tracker & Workout Routines",
-      url: "#",
-      emoji: "💪",
-    },
-    {
-      name: "Book Notes & Reading List",
-      url: "#",
-      emoji: "📚",
-    },
-    {
-      name: "Sustainable Gardening Tips & Plant Care",
-      url: "#",
-      emoji: "🌱",
-    },
-    {
-      name: "Language Learning Progress & Resources",
-      url: "#",
-      emoji: "🗣️",
     },
     {
       name: "Home Renovation Ideas & Budget Tracker",
