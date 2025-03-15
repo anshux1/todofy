@@ -1,7 +1,9 @@
 "use server"
 
+import { headers } from "next/headers"
 import { VerificationEmail } from "@/emails/VerifyEmail"
 
+import { auth } from "@/lib/auth"
 import { createAction } from "@/lib/create-action"
 import { resend } from "@/lib/resend"
 import prisma from "@/db"
@@ -9,15 +11,34 @@ import {
   AccessTokenSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
+  setPasswordSchema,
 } from "./schema"
 import {
   InputTypeAccessToken,
   InputTypeForgotPassword,
   InputTypeResetPassword,
+  InputTypeSetPassword,
   ReturnTypeAccessToken,
   ReturnTypeForgotPassword,
   ReturnTypeResetPassword,
+  ReturnTypeSetPassword,
 } from "./types"
+
+const setPasswordHandler = async (
+  values: InputTypeSetPassword,
+): Promise<ReturnTypeSetPassword> => {
+  try {
+    const result = await auth.api.setPassword({
+      body: { newPassword: values.newPassword },
+      headers: await headers(),
+    })
+    console.log(result)
+    return { data: "Success" }
+  } catch (error) {
+    console.error(error)
+    return { error: "Failed to set password" }
+  }
+}
 
 async function AccessTokenMail({
   name,
@@ -94,3 +115,5 @@ export const resetPassword = createAction(
   resetPasswordSchema,
   resetPasswordHandler,
 )
+
+export const setPassword = createAction(setPasswordSchema, setPasswordHandler)

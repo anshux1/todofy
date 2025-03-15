@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { Checkbox } from "./ui/checkbox"
 
 export function FieldLabel(props: {
   children?: React.ReactNode
@@ -76,6 +77,32 @@ export function InputField<F extends FieldValues>(props: {
             </FormControl>
             <FormMessage />
           </label>
+        </FormItem>
+      )}
+    />
+  )
+}
+
+export function CheckboxField<F extends FieldValues>(props: {
+  control: Control<F>
+  name: Path<F>
+  label: React.ReactNode
+  required?: boolean
+  disabled?: boolean
+  className?: string
+}) {
+  return (
+    <FormField
+      control={props.control}
+      name={props.name}
+      render={({ field }) => (
+        <FormItem className="flex flex-row items-start space-y-0 space-x-3">
+          <FormControl>
+            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+          </FormControl>
+          <div className="space-y-1 leading-none">
+            <FormLabel>{props.label}</FormLabel>
+          </div>
         </FormItem>
       )}
     />

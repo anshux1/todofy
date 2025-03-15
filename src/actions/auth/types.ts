@@ -4,8 +4,10 @@ import z from "zod"
 import { ActionState } from "@/lib/create-action"
 import {
   AccessTokenSchema,
+  changePasswordSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
+  setPasswordSchema,
   signinSchema,
   signupSchema,
 } from "./schema"
@@ -30,3 +32,8 @@ export type ReturnTypeResetPassword = ActionState<
   InputTypeResetPassword,
   string
 >
+
+export type InputTypeSetPassword = z.infer<typeof setPasswordSchema>
+export type ReturnTypeSetPassword = ActionState<InputTypeSetPassword, string>
+
+export type InputTypeChangePassword = z.infer<typeof changePasswordSchema>

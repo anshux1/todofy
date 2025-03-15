@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
       {
         hostname: "lh3.googleusercontent.com",
       },
+      {
+        hostname: "d1nbslm0j6pual.cloudfront.net",
+      },
+      {
+        hostname: "files.edgestore.dev",
+      },
     ],
   },
 }

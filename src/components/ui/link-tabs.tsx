@@ -64,11 +64,11 @@ const Links = () => {
       {SettingsTabs.map((tab) => (
         <Link key={tab.label} href={tab.href}>
           <LinkItem
-            className={`${pathname === tab.href ? "dark:border-primary border-b-2 pb-3" : ""} group`}
+            className={`${pathname.includes(tab.href) ? "dark:border-primary border-b-2 pb-3" : ""} group`}
             setPosition={setPosition}
           >
             <p
-              className={`${pathname === tab.href ? "dark:text-primary" : "text-muted-foreground"} group-hover:text-secondary dark:group-hover:text-primary`}
+              className={`${pathname.includes(tab.href) ? "dark:text-primary" : "text-muted-foreground"} group-hover:text-secondary dark:group-hover:text-primary`}
             >
               {tab.label}
             </p>

@@ -29,3 +29,25 @@ export const resetPasswordSchema = z
     confirmPassword: passwordSchema,
   })
   .refine((item) => item.password === item.confirmPassword)
+
+export const setPasswordSchema = z
+  .object({
+    newPassword: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
+
+export const changePasswordSchema = z
+  .object({
+    oldPassword: passwordSchema,
+    newPassword: passwordSchema,
+    confirmPassword: passwordSchema,
+    revokeSessions: z.boolean().optional(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
