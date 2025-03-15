@@ -1,8 +1,10 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { ChevronDown, Plus } from "lucide-react"
 
+import { authClient } from "@/lib/auth.config"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +29,8 @@ export function TeamSwitcher({
     plan: string
   }[]
 }) {
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const [, setActiveTeam] = React.useState(teams[0])
+  const user = authClient.useSession().data?.user
 
   return (
     <SidebarMenu>
@@ -35,10 +38,23 @@ export function TeamSwitcher({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="w-fit px-1.5">
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-5 items-center justify-center rounded-md">
-                <activeTeam.logo className="size-3" />
-              </div>
-              <span className="truncate font-medium">{activeTeam.name}</span>
+              {user && (
+                <>
+                  <Image
+                    src={
+                      user.image ||
+                      `https://d1nbslm0j6pual.cloudfront.net/?text=${user.name.charAt(0)}&size=195&bg=ffffff`
+                    }
+                    className="bg-sidebar-primary aspect-square size-5 rounded-full"
+                    alt="Profile"
+                    width={18}
+                    height={18}
+                  />
+                  <span className="truncate font-medium">
+                    {user.name.split(" ").at(0)}
+                  </span>
+                </>
+              )}
               <ChevronDown className="opacity-50" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>

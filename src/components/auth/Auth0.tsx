@@ -11,7 +11,7 @@ export const Auth0 = () => {
     await authClient.signIn.social(
       {
         provider,
-        callbackURL: "/overview",
+        callbackURL: "/app",
       },
       {
         onSuccess: () => {
