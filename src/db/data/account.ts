@@ -1,3 +1,5 @@
+"use server"
+
 import { headers } from "next/headers"
 
 import { auth } from "@/lib/auth"
@@ -12,5 +14,14 @@ export const getAccountDetails = async () => {
     select: {
       password: true,
     },
+  })
+}
+
+export const getUserFeatures = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+  return await prisma.userFeature.findMany({
+    where: { userId: session?.user.id },
   })
 }

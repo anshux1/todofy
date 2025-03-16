@@ -66,27 +66,32 @@ export const AccountImage = () => {
             className="object-cover"
           />
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            {user?.image ? "Change Photo" : "Upload Photo"}
-          </Button>
-          {user?.image && (
-            <Button variant="destructive" type="button" onClick={removeImage}>
-              Remove Photo
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {user?.image ? "Change Photo" : "Upload Photo"}
             </Button>
-          )}
-          <input
-            ref={fileInputRef}
-            id="photo"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={changeImage}
-          />
+            {user?.image && (
+              <Button variant="destructive" type="button" onClick={removeImage}>
+                Remove Photo
+              </Button>
+            )}
+            <input
+              ref={fileInputRef}
+              id="photo"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={changeImage}
+            />
+          </div>
+          <p className="text-muted-foreground text-xs">
+            Pick a photo up to 4MB. Your avatar photo will be public.
+          </p>
         </div>
       </div>
     </div>

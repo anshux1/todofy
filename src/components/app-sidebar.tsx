@@ -5,15 +5,9 @@ import {
   AudioWaveform,
   Blocks,
   Calendar,
-  Calendar1,
-  CalendarDays,
-  CircleCheck,
   Command,
-  Inbox,
   MessageCircleQuestion,
-  Search,
   Settings2,
-  Tag,
   Trash2,
 } from "lucide-react"
 
@@ -46,39 +40,6 @@ const data = {
       name: "Evil Corp.",
       logo: Command,
       plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "Inbox",
-      url: "#",
-      icon: Inbox,
-      badge: "10",
-    },
-    {
-      title: "Today",
-      url: "#",
-      icon: Calendar1,
-    },
-    {
-      title: "Upcoming",
-      url: "#",
-      icon: CalendarDays,
-    },
-    {
-      title: "Filters & Labels",
-      url: "#",
-      icon: Tag,
-    },
-    {
-      title: "Completed",
-      url: "#",
-      icon: CircleCheck,
     },
   ],
   navSecondary: [
@@ -197,7 +158,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
-        <NavMain items={data.navMain} />
+        <NavMain />
       </SidebarHeader>
       <SidebarContent>
         <NavFavorites favorites={data.favorites} />

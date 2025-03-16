@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma"
 import { openAPI } from "better-auth/plugins"
 
 import { sendAccessTokenMail } from "@/actions/auth"
+import { createUserFeatures } from "@/actions/quick-add"
 import prisma from "@/db"
 
 export const auth = betterAuth({
@@ -13,6 +14,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    autoSignIn: true,
   },
   emailVerification: {
     sendOnSignUp: true,
@@ -34,6 +36,15 @@ export const auth = betterAuth({
     github: {
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await createUserFeatures(user.id)
+        },
+      },
     },
   },
 })

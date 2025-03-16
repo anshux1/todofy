@@ -26,6 +26,7 @@ model User {
   projects      Project[] @relation("ProjectOwner")
   tasks         Task[]    @relation("Taskcreator")
   assignedTasks Task[]    @relation("assigned_to")
+  features      UserFeature[]
 
   @@unique([email])
   @@map("user")
@@ -74,6 +75,15 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model UserFeature {
+  id     String      @id @default(uuid())
+  name   String
+  shown  Boolean
+  type   FeatureType
+  userId String
+  user   User        @relation(fields: [userId], references: [id])
 }
 
 model Project {
@@ -135,4 +145,9 @@ model Due {
   task         Task     @relation(fields: [task_id], references: [id])
 
   @@index([task_id])
+}
+
+enum FeatureType {
+  NAVIGATION
+  TASK
 }

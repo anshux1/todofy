@@ -29,36 +29,42 @@ export const AccountDeleteDialog = () => {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="destructive" className="w-fit">
-          Delete Account
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="top-[30%] sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Delete Account</DialogTitle>
-          <DialogDescription className="tracking-wide">
-            This action is irreversible. To confirm, please enter the project
-            name <span className="font-medium text-red-700">DELETE</span>
-          </DialogDescription>
-        </DialogHeader>
-        <Input value={value} onChange={(e) => setValue(e.target.value)} />
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline" className="mt-2 sm:mt-0" type="submit">
-              Cancel
-            </Button>
-          </DialogClose>
-          <Button
-            disabled={value !== "DELETE"}
-            variant="destructive"
-            onClick={handleDelete}
-          >
+    <>
+      <p className="text-muted-foreground mb-2 text-xs">
+        This will immediately delete all of your data including tasks, projects,
+        comments, and more. This can’t be undone.
+      </p>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="destructive" className="w-fit">
             Delete Account
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogTrigger>
+        <DialogContent className="top-[30%] sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete Account</DialogTitle>
+            <DialogDescription className="tracking-wide">
+              This action is irreversible. To confirm, please enter the project
+              name <span className="font-medium text-red-700">DELETE</span>
+            </DialogDescription>
+          </DialogHeader>
+          <Input value={value} onChange={(e) => setValue(e.target.value)} />
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" className="mt-2 sm:mt-0" type="submit">
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button
+              disabled={value !== "DELETE"}
+              variant="destructive"
+              onClick={handleDelete}
+            >
+              Delete Account
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
