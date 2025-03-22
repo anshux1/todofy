@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { getUserFeatures } from "@/db/data/account"
-import { AddTask } from "./task/TaskAddForm"
+import { TaskAddDialog } from "./task/TaskAddDialog"
 
 export function NavMain() {
   const pathname = usePathname()
@@ -31,7 +31,7 @@ export function NavMain() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton asChild className="p-0">
-          <AddTask />
+          <TaskAddDialog />
         </SidebarMenuButton>
       </SidebarMenuItem>
       {sidebarOptions.map((item) => {
