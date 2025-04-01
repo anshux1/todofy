@@ -45,8 +45,7 @@ export const SelectDate = ({
 }: SelectDateProps) => {
   const [inputValue, setInputValue] = useState("")
 
-  const parsedDate = useDateParse(inputValue)
-  setDate(parsedDate)
+  useDateParse(inputValue, setDate)
 
   return (
     <Popover>
@@ -97,7 +96,6 @@ export const SelectDate = ({
             onSelect={setDate}
             fromYear={2025}
             toYear={getYear(new Date()) + 4}
-            weekStartsOn={1}
             className="p-0.5"
           />
         </div>

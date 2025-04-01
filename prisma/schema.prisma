@@ -113,38 +113,28 @@ model Project {
 }
 
 model Task {
-  id              String    @id @default(uuid())
+  id String @id @default(uuid())
+  title String
+  description String?
+  checked     Boolean
+  date        DateTime?
+  deadline    DateTime?
+  duration    DateTime?
+  is_deleted  Boolean
+  labels      String[]
+  priority    Int?
+  added_at    DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  project_id  String?
+  project     Project? @relation(fields: [project_id], references: [id])
+
   added_by_uid    String
   assigned_to_uid String?
-  checked         Boolean
-  child_order     Int
-  content         String?
-  deadline        DateTime?
-  duration        Int?
-  is_deleted      Boolean
-  labels          String[]
-  priority        Int?
-  project_id      String?
-  due             Due?
-  added_at        DateTime  @default(now())
-  updated_at      DateTime  @updatedAt
-
-  project     Project? @relation(fields: [project_id], references: [id])
-  assigned_to User?    @relation("assigned_to", fields: [assigned_to_uid], references: [id])
-  added_by    User     @relation("Taskcreator", fields: [added_by_uid], references: [id])
+  assigned_to     User?   @relation("assigned_to", fields: [assigned_to_uid], references: [id])
+  added_by        User    @relation("Taskcreator", fields: [added_by_uid], references: [id])
 
   @@index([project_id, added_by_uid, assigned_to_uid])
-}
-
-model Due {
-  id           String   @id @default(uuid())
-  date         DateTime
-  is_recurring Boolean
-  string       String
-  task_id      String   @unique
-  task         Task     @relation(fields: [task_id], references: [id])
-
-  @@index([task_id])
 }
 
 enum FeatureType {

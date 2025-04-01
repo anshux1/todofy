@@ -1,9 +1,12 @@
-import { useMemo } from "react"
+import { Dispatch, useMemo } from "react"
 import { datePatterns, getDayDate, monthMappings } from "@/constants/features"
 import { getYear, isValid, parse, setMonth, startOfMonth } from "date-fns"
 
-export const useDateParse = (inputValue: string) => {
-  return useMemo(() => {
+export const useDateParse = (
+  inputValue: string,
+  setDate: Dispatch<React.SetStateAction<Date | undefined>>,
+) => {
+  useMemo(() => {
     if (!inputValue) {
       return
     }
@@ -12,11 +15,13 @@ export const useDateParse = (inputValue: string) => {
     if (words.length === 1) {
       const date = getDayDate(words[0])
       if (date) {
-        return date
+        setDate(date)
+        return
       }
 
       if (monthMappings[words[0]] !== undefined) {
-        return startOfMonth(setMonth(new Date(), monthMappings[words[0]]))
+        setDate(startOfMonth(setMonth(new Date(), monthMappings[words[0]])))
+        return
       }
     }
 
@@ -25,18 +30,16 @@ export const useDateParse = (inputValue: string) => {
 
       // Handle "1 Mar" and "Mar 1"
       if (!isNaN(parseInt(first)) && monthMappings[second] !== undefined) {
-        return new Date(
-          getYear(new Date()),
-          monthMappings[second],
-          parseInt(first),
+        setDate(
+          new Date(getYear(new Date()), monthMappings[second], parseInt(first)),
         )
+        return
       }
       if (monthMappings[first] !== undefined && !isNaN(parseInt(second))) {
-        return new Date(
-          getYear(new Date()),
-          monthMappings[first],
-          parseInt(second),
+        setDate(
+          new Date(getYear(new Date()), monthMappings[first], parseInt(second)),
         )
+        return
       }
 
       // Handle "Mar 2024"
@@ -45,9 +48,12 @@ export const useDateParse = (inputValue: string) => {
         second.length === 4 &&
         !isNaN(parseInt(second))
       ) {
-        return startOfMonth(
-          setMonth(new Date(parseInt(second), 0), monthMappings[first]),
+        setDate(
+          startOfMonth(
+            setMonth(new Date(parseInt(second), 0), monthMappings[first]),
+          ),
         )
+        return
       }
     }
 
@@ -60,23 +66,29 @@ export const useDateParse = (inputValue: string) => {
         monthMappings[second] !== undefined &&
         !isNaN(parseInt(third))
       ) {
-        return new Date(parseInt(third), monthMappings[second], parseInt(first))
+        setDate(
+          new Date(parseInt(third), monthMappings[second], parseInt(first)),
+        )
+        return
       }
       if (
         monthMappings[first] !== undefined &&
         !isNaN(parseInt(second)) &&
         !isNaN(parseInt(third))
       ) {
-        return new Date(parseInt(third), monthMappings[first], parseInt(second))
+        setDate(
+          new Date(parseInt(third), monthMappings[first], parseInt(second)),
+        )
+        return
       }
     }
 
     for (const pattern of datePatterns) {
       const parsedDate = parse(inputValue, pattern, new Date())
       if (isValid(parsedDate)) {
-        return parsedDate
+        setDate(parsedDate)
+        return
       }
     }
-    return undefined
-  }, [inputValue])
+  }, [inputValue, setDate])
 }
