@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String        @id
   name          String
   email         String
   emailVerified Boolean
@@ -23,9 +23,9 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  projects      Project[] @relation("ProjectOwner")
-  tasks         Task[]    @relation("Taskcreator")
-  assignedTasks Task[]    @relation("assigned_to")
+  projects      Project[]     @relation("ProjectOwner")
+  tasks         Task[]        @relation("Taskcreator")
+  assignedTasks Task[]        @relation("assigned_to")
   features      UserFeature[]
 
   @@unique([email])
@@ -115,23 +115,23 @@ model Project {
 model Task {
   id              String    @id @default(uuid())
   added_by_uid    String
-  assigned_to_uid String
+  assigned_to_uid String?
   checked         Boolean
   child_order     Int
-  content         String
+  content         String?
   deadline        DateTime?
-  duration        Int
+  duration        Int?
   is_deleted      Boolean
   labels          String[]
-  priority        Int
-  project_id      String
+  priority        Int?
+  project_id      String?
   due             Due?
   added_at        DateTime  @default(now())
   updated_at      DateTime  @updatedAt
 
-  project     Project @relation(fields: [project_id], references: [id])
-  assigned_to User?   @relation("assigned_to", fields: [assigned_to_uid], references: [id])
-  added_by    User    @relation("Taskcreator", fields: [added_by_uid], references: [id])
+  project     Project? @relation(fields: [project_id], references: [id])
+  assigned_to User?    @relation("assigned_to", fields: [assigned_to_uid], references: [id])
+  added_by    User     @relation("Taskcreator", fields: [added_by_uid], references: [id])
 
   @@index([project_id, added_by_uid, assigned_to_uid])
 }

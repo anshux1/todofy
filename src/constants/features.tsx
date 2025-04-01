@@ -1,4 +1,15 @@
-import { addDays, nextMonday, set } from "date-fns"
+import {
+  addDays,
+  nextFriday,
+  nextMonday,
+  nextSaturday,
+  nextSunday,
+  nextThursday,
+  nextTuesday,
+  nextWednesday,
+  set,
+  startOfDay,
+} from "date-fns"
 import * as Icons from "lucide-react"
 
 export const featuresData = [
@@ -113,28 +124,90 @@ export const PriorityOptions = [
     name: "Priority 1",
     Icon: Icons.Flag,
     className: "fill-red-600 stroke-red-600",
-    value: ["p1", "P1"],
+    value: 1,
   },
   {
     name: "Priority 2",
     Icon: Icons.Flag,
     className: "stroke-orange-400 fill-orange-400",
-    value: ["p2", "P2"],
+    value: 2,
   },
   {
     name: "Priority 3",
     Icon: Icons.Flag,
     className: "stroke-green-600 fill-green-600",
-    value: ["p3", "P3"],
+    value: 3,
   },
   {
     name: "Priority 4",
     Icon: Icons.Flag,
     className: "stroke-gray-600 fill-gray-600",
-    value: ["p4", "P4"],
+    value: 4,
   },
 ]
 
 export const featureDataMap = new Map<string, Icons.LucideIcon>(
   featuresData.map(({ name, icon }) => [name, icon]),
 )
+
+export const dayMappings: Record<string, () => Date> = {
+  monday: () => startOfDay(nextMonday(new Date())),
+  tuesday: () => startOfDay(nextTuesday(new Date())),
+  wednesday: () => startOfDay(nextWednesday(new Date())),
+  thursday: () => startOfDay(nextThursday(new Date())),
+  friday: () => startOfDay(nextFriday(new Date())),
+  saturday: () => startOfDay(nextSaturday(new Date())),
+  sunday: () => startOfDay(nextSunday(new Date())),
+}
+
+export const dayAliases: Record<string, string> = {
+  mon: "monday",
+  tue: "tuesday",
+  wed: "wednesday",
+  thu: "thursday",
+  fri: "friday",
+  sat: "saturday",
+  sun: "sunday",
+}
+
+export const getDayDate = (input: string): Date | undefined => {
+  const normalized = dayAliases[input] || input // Convert "mon" → "monday"
+  return dayMappings[normalized]?.()
+}
+
+export const monthMappings: Record<string, number> = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11,
+}
+
+export const datePatterns = [
+  "d MMM yyyy",
+  "d MMM",
+  "MMM d yyyy",
+  "MMM d",
+  "MMM yyyy d",
+  "yyyy-MM-dd",
+  "d/M/yyyy",
+  "M/d/yyyy",
+]

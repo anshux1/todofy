@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useRef, type ChangeEvent } from "react"
+import { useEffect, useRef } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -27,19 +27,11 @@ export const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
 
   useEffect(() => {
     resizeTextarea()
-  }, [])
-
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    resizeTextarea()
-    if (props.onChange) {
-      props.onChange(event)
-    }
-  }
+  }, [textareaRef.current?.value])
 
   return (
     <textarea
       ref={textareaRef}
-      onChange={handleChange}
       rows={minRows}
       className={cn(
         "w-full resize-none overflow-hidden bg-transparent",
