@@ -5,6 +5,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { Toaster } from "sonner"
 
 import { EdgeStoreProvider } from "@/lib/edgestore"
+import { TooltipProvider } from "./ui/tooltip"
 
 export default function RootProvider({
   children,
@@ -20,7 +21,7 @@ export default function RootProvider({
       disableTransitionOnChange
     >
       <EdgeStoreProvider>
-        {children}
+        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
         <Toaster richColors position="top-center" />
       </EdgeStoreProvider>
     </ThemeProvider>

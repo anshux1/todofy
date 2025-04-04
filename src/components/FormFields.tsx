@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { JSX, useState } from "react"
 import { format } from "date-fns"
 import { CalendarIcon, Eye, EyeOff } from "lucide-react"
 import { Control, FieldValues, Path } from "react-hook-form"
@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { AutoResizeTextarea } from "./ui/auto-resize-textarea"
 import { Checkbox } from "./ui/checkbox"
 
 export function FieldLabel(props: {
@@ -151,6 +152,7 @@ export function DateField<F extends FieldValues>(props: {
   label?: React.ReactNode
   required?: boolean
   disabled?: boolean
+  popoverTrigger?: () => JSX.Element
 }) {
   return (
     <FormField
@@ -164,21 +166,25 @@ export function DateField<F extends FieldValues>(props: {
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
-                <Button
-                  variant={"outline"}
-                  className={cn(
-                    "pl-3 text-left font-normal",
-                    !field.value && "text-muted-foreground",
-                  )}
-                  disabled={props.disabled}
-                >
-                  <CalendarIcon className="mr-2 ml-0 size-4 opacity-50" />
-                  {field.value ? (
-                    format(field.value, "PPP")
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
+                {props.popoverTrigger ? (
+                  props.popoverTrigger()
+                ) : (
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "pl-3 text-left font-normal",
+                      !field.value && "text-muted-foreground",
+                    )}
+                    disabled={props.disabled}
+                  >
+                    <CalendarIcon className="mr-2 ml-0 size-4 opacity-50" />
+                    {field.value ? (
+                      format(field.value, "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                )}
               </FormControl>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -186,9 +192,7 @@ export function DateField<F extends FieldValues>(props: {
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
+                disabled={(date) => date < new Date()}
               />
             </PopoverContent>
           </Popover>
@@ -285,5 +289,43 @@ export function PasswordField<F extends FieldValues>(props: {
         )}
       </button>
     </div>
+  )
+}
+export function AutoResizeTextareaField<F extends FieldValues>(props: {
+  className?: string
+  control: Control<F>
+  name: Path<F>
+  label?: React.ReactNode
+  placeholder?: string
+  required?: boolean
+  disabled?: boolean
+}) {
+  return (
+    <FormField
+      control={props.control}
+      name={props.name}
+      render={({ field }) => (
+        <FormItem>
+          <label className="flex flex-col gap-2">
+            {props.label && (
+              <FieldLabel required={props.required}>{props.label}</FieldLabel>
+            )}
+            <FormControl>
+              <AutoResizeTextarea
+                {...field}
+                className={cn(
+                  "bg-background h-auto w-full pr-4 focus:outline-none",
+                  props.className,
+                )}
+                placeholder={props.placeholder}
+                disabled={props.disabled}
+                required={props.required}
+              />
+            </FormControl>
+            <FormMessage />
+          </label>
+        </FormItem>
+      )}
+    />
   )
 }

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import { featuresData } from "@/constants/features"
 import { refreshAtom } from "@/store/atoms"
 import { useAtomValue } from "jotai"
+import { Plus } from "lucide-react"
 
 import { UserFeature } from "@prisma/client"
 import {
@@ -21,19 +22,24 @@ export function NavMain() {
   useEffect(() => {
     const fetchSidebarOptions = async () => {
       const res = await getUserFeatures()
-      setSidebarOptions(
-        res.filter((item) => item.shown && item.type === "NAVIGATION"),
+      const newSidebarOptions = res.filter(
+        (item) => item.shown && item.type === "NAVIGATION",
       )
+      setSidebarOptions(newSidebarOptions)
+      console.log("sidebarOptions", newSidebarOptions)
     }
     fetchSidebarOptions()
   }, [value])
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
-        <SidebarMenuButton asChild className="p-0">
-          <TaskAddDialog />
-        </SidebarMenuButton>
-      </SidebarMenuItem>
+      <TaskAddDialog>
+        <SidebarMenuItem>
+          <SidebarMenuButton>
+            <Plus className="text-primary size-4" />
+            <span className="text-primary">Add task</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </TaskAddDialog>
       {sidebarOptions.map((item) => {
         const Feat = featuresData.find((feat) => feat.name === item.name)
         return (
@@ -41,7 +47,7 @@ export function NavMain() {
             <SidebarMenuButton asChild isActive={pathname === Feat?.href}>
               {Feat && Feat.href && (
                 <Link href={Feat.href}>
-                  <Feat.icon className="text-primary" />
+                  <Feat.icon className="text-primary size-4" />
                   <span className="text-primary">{item.name}</span>
                 </Link>
               )}

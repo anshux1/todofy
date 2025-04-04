@@ -1,6 +1,5 @@
-import { Plus } from "lucide-react"
+import { ReactNode } from "react"
 
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,19 +9,10 @@ import {
 } from "@/components/ui/dialog"
 import { TaskAddForm } from "./TaskAddForm"
 
-export function TaskAddDialog() {
+export function TaskAddDialog({ children }: { children: ReactNode }) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          size="xs"
-          className="text-primary w-full justify-start px-1.5"
-          variant="ghost"
-        >
-          <Plus className="size-5" />
-          <span>Add task</span>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="top-[30%] left-[50%] p-0 sm:max-w-3xl lg:left-[56%]">
         <DialogHeader className="hidden">
           <DialogTitle />

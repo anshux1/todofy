@@ -1,3 +1,5 @@
+"use server"
+
 import { headers } from "next/headers"
 
 import { auth } from "@/lib/auth"
@@ -17,7 +19,7 @@ const addTaskHandler = async (
     if (!userId) {
       return { error: "Unauthroized" }
     }
-    const newTask = await prisma.task.create({
+    await prisma.task.create({
       data: {
         title: input.title,
         description: input.description,
@@ -33,7 +35,7 @@ const addTaskHandler = async (
         project_id: input.project_id,
       },
     })
-    return { data: newTask }
+    return { data: "Task added Successfully" }
   } catch {
     return { error: "Failed to toggle feature" }
   }

@@ -8,6 +8,9 @@ export const addTaskSchema = z.object({
   duration: z.date().optional(),
   assigned_to_uid: z.string().optional(),
   labels: z.array(z.string()).optional(),
-  priority: z.number().optional(),
+  priority: z.number(),
   project_id: z.string().optional(),
+  color: z
+    .enum(["sky", "amber", "violet", "rose", "emerald", "orange", "indigo"])
+    .optional(),
 })
