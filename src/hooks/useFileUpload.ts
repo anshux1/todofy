@@ -26,7 +26,7 @@ export const useFileUpload = (options?: useFileUploadOptions) => {
         const blockBlobClient = containerClient.getBlockBlobClient(
           `${userId}-${Date.now()}`,
         )
-        const res = await blockBlobClient.uploadBrowserData(file, {
+        const res = await blockBlobClient.uploadData(file, {
           blobHTTPHeaders: {
             blobContentType: file.type,
           },

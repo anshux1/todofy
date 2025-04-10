@@ -1,7 +1,7 @@
 export const route = {
   publicRoutes: ["/"],
-  authRoutes: ["/signin", "/signup"],
+  authRoutes: ["/auth/signin", "/auth/signup"],
   apiAuthPrefix: "/api/auth",
 }
 
-export const DEFAULT_REDIRECT = "/overview"
+export const DEFAULT_REDIRECT = "/app/today"

@@ -7,14 +7,14 @@ type Action<TInput, TOutput> = (
 ) => Promise<ActionState<TInput, TOutput>>
 
 interface useActionProps<TOutput> {
-  onSuccess: (data: TOutput) => void
-  onError: (error: string) => void
-  onComplete: () => void
+  onSuccess?: (data: TOutput) => void
+  onError?: (error: string) => void
+  onComplete?: () => void
 }
 
 export const useAction = <TInput, TOutput>(
   action: Action<TInput, TOutput>,
-  options: useActionProps<TOutput>,
+  options?: useActionProps<TOutput>,
 ) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -32,15 +32,15 @@ export const useAction = <TInput, TOutput>(
         setFieldErrors(result.FieldErrors)
         if (result.error) {
           setError(result.error)
-          options.onError(result.error)
+          if (options?.onError) options.onError(result.error)
         }
         if (result.data) {
           setData(result.data)
-          if (options.onSuccess) options.onSuccess(result.data)
+          if (options?.onSuccess) options.onSuccess(result.data)
         }
       } finally {
         setIsLoading(false)
-        if (options.onComplete) options.onComplete()
+        if (options?.onComplete) options.onComplete()
       }
     },
     [action, options],

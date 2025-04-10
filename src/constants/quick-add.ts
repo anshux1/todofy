@@ -79,3 +79,7 @@ export const featuresData = [
     href: "/completed",
   },
 ]
+
+export const featuresIcons = new Map<string, Icons.LucideIcon>(
+  featuresData.map(({ name, icon }) => [name, icon]),
+)
