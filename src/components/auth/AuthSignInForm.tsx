@@ -12,7 +12,7 @@ import { InputField, PasswordField } from "@/components/FormFields"
 import { signinSchema } from "@/actions/auth/schema"
 import { InputTypeSignIn } from "@/actions/auth/types"
 
-export const SigninForm = () => {
+export const AuthSignInForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const form = useForm<InputTypeSignIn>({
     resolver: zodResolver(signinSchema),
@@ -25,11 +25,7 @@ export const SigninForm = () => {
     setIsSubmitting(true)
     try {
       await authClient.signIn.email(
-        {
-          email: values.email,
-          password: values.password,
-          callbackURL: "/overview",
-        },
+        { ...values, callbackURL: "/overview" },
         {
           onSuccess: () => {
             toast.success("Sign up successfully")

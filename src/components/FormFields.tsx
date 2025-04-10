@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import Link from "next/link"
 import { format } from "date-fns"
-import { CalendarIcon, Eye, EyeOff } from "lucide-react"
+import { CalendarIcon } from "lucide-react"
 import { Control, FieldValues, Path } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
@@ -233,34 +233,17 @@ export function PasswordField<F extends FieldValues>(props: {
   disabled?: boolean
   showForgotPassword?: boolean
 }) {
-  const [isVisible, setIsVisible] = useState<boolean>(false)
-  const toggleVisibility = () => setIsVisible((prevState) => !prevState)
-
   return (
     <div className="space-y-2 pb-3.5">
       <div className="relative">
         <InputField
           {...props}
-          className={cn(props.className, "pe-9")}
+          className={cn(props.className)}
           label={props.label}
           placeholder={props.placeholder}
-          type={isVisible ? "text" : "password"}
+          type="password"
           required
         />
-        <button
-          className="text-muted-foreground/80 hover:text-foreground focus-visible:outline-ring/70 absolute inset-y-3 end-0 flex h-full w-9 items-center justify-center rounded-e-lg outline-offset-2 transition-colors focus:z-10 focus-visible:outline focus-visible:outline-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-          type="button"
-          onClick={toggleVisibility}
-          aria-label={isVisible ? "Hide password" : "Show password"}
-          aria-pressed={isVisible}
-          aria-controls="password"
-        >
-          {isVisible ? (
-            <EyeOff size={16} strokeWidth={2} aria-hidden="true" />
-          ) : (
-            <Eye size={16} strokeWidth={2} aria-hidden="true" />
-          )}
-        </button>
         {props.showForgotPassword && (
           <Link
             href="/forgot-password"
