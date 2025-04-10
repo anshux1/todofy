@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { toast } from "sonner"
 
-import { authClient } from "@/lib/auth.config"
+import { authClient } from "@/lib/auth/config"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -12,7 +12,11 @@ type Provider = "google" | "github" | "twitter"
 export function Auth0Form() {
   const handleAuth = async (provider: Provider) => {
     await authClient.signIn.social(
-      { provider, callbackURL: "/overview" },
+      {
+        provider,
+        callbackURL: "/app/today",
+        newUserCallbackURL: "/auth/onboarding",
+      },
       {
         onSuccess: () => {
           toast.success("Sign up successfully")

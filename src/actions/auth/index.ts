@@ -3,7 +3,7 @@
 import { VerificationEmail } from "@/emails/VerifyEmail"
 
 import { createAction } from "@/lib/create-action"
-import { resend } from "@/lib/resend"
+import { resend } from "@/lib/services/resend"
 import { AccessTokenSchema } from "./schema"
 import { InputTypeAccessToken, ReturnTypeAccessToken } from "./types"
 

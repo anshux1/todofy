@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-import { authClient } from "@/lib/auth.config"
+import { authClient } from "@/lib/auth/config"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { InputField, PasswordField } from "@/components/FormFields"
