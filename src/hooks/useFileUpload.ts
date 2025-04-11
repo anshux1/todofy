@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react"
-import { BlobServiceClient } from "@azure/storage-blob"
+
+import { containerClient } from "@/lib/services/azure"
 
 interface useFileUploadOptions {
   onSuccess?: (url: string) => void
@@ -7,18 +8,12 @@ interface useFileUploadOptions {
   onComplete?: () => void
 }
 
-const blobServiceClient = new BlobServiceClient(
-  process.env.AZURE_BLOB_SAS_URL || "",
-)
-const containerName = process.env.AZURE_BLOB_CONTAINER_NAME || ""
-const containerClient = blobServiceClient.getContainerClient(containerName)
-
 export const useFileUpload = (options?: useFileUploadOptions) => {
   const [progress, setProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
 
   const uploadFile = useCallback(
-    async (file: File, userId: string) => {
+    async (file: File, userId?: string) => {
       if (!file) return
       setIsUploading(true)
       setProgress(0)

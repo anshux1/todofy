@@ -5,3 +5,12 @@ export const toggleFeatureSchema = z.object({
   shown: z.boolean(),
   currentPath: z.string().optional(),
 })
+
+export const updateNameSchema = z.object({
+  name: z.string({ message: "Invalid name" }),
+  currentPath: z.string().optional(),
+})
+
+export const deleteImageSchema = z.object({
+  imageUrl: z.string().url(),
+})

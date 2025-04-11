@@ -3,6 +3,8 @@ import { headers } from "next/headers"
 
 import { auth } from "@/lib/auth"
 import { LinkButton } from "@/components/LinkButton"
+import { AccountImage } from "@/components/settings/AccountImage"
+import { AccountNameForm } from "@/components/settings/AccountNameChange"
 import { getAccountDetails } from "@/db/data/user"
 
 export default async function page() {
@@ -13,8 +15,10 @@ export default async function page() {
     getAccountDetails(),
   ])
   return (
-    <div className="m-2 mx-2 flex h-8/12 max-w-3xl flex-col rounded-sm sm:mx-auto sm:w-full">
-      <div className="my-2 flex flex-col gap-1 px-3.5">
+    <div className="m-2 flex h-8/12 flex-col rounded-sm">
+      <AccountImage />
+      <AccountNameForm name={session?.user.name || ""} />
+      <div className="my-2 flex flex-col gap-1">
         <h2 className="font-medium">Email</h2>
         <p>{session?.user.email}</p>
         <LinkButton
@@ -24,7 +28,7 @@ export default async function page() {
           className="mt-1"
         />
       </div>
-      <div className="my-2 flex flex-col gap-1 px-3.5">
+      <div className="my-2 flex flex-col gap-1">
         <h2 className="font-medium">Password</h2>
         {!accountDetails?.password ? (
           <LinkButton
@@ -40,7 +44,7 @@ export default async function page() {
           />
         )}
       </div>
-      <div className="my-2 flex flex-col gap-1 px-3.5">
+      <div className="my-2 flex flex-col gap-1">
         <h2 className="font-medium">Delete</h2>
       </div>
     </div>

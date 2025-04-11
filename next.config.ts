@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "todofy.blob.core.windows.net" },
       { hostname: "lh3.googleusercontent.com" },
+      { hostname: "d1nbslm0j6pual.cloudfront.net" },
     ],
   },
   experimental: {
