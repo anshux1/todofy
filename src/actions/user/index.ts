@@ -30,6 +30,7 @@ export const createUserFeatures = async (userId: string) => {
         shown: feat.shown,
         userId,
         type: feat.navigation ? "NAVIGATION" : "TASK",
+        href: feat.href,
       },
     })
   }

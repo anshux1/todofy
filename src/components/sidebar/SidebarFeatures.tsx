@@ -10,7 +10,7 @@ export async function SidebarFeatures() {
       {features.map((item, index) => {
         const Icon = featuresIcons.get(item.name)
         return (
-          <Link href={item.id} key={index}>
+          <Link href={item.href || ""} key={index}>
             <div key={index} className="flex flex-col gap-1">
               <h4 className="hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium">
                 {Icon && (

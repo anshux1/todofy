@@ -103,6 +103,7 @@ export function SwitchField<F extends FieldValues>(props: {
               props.border ? "rounded-lg border p-3 shadow-sm" : null,
             )}
           >
+            <FieldLabel required={props.required}>{props.label}</FieldLabel>
             <FormControl>
               <Switch
                 checked={field.value}
@@ -110,7 +111,6 @@ export function SwitchField<F extends FieldValues>(props: {
                 disabled={props.disabled}
               />
             </FormControl>
-            <FieldLabel required={props.required}>{props.label}</FieldLabel>
           </label>
           <FormMessage />
         </FormItem>

@@ -25,6 +25,7 @@ model User {
   accounts      Account[]
   UserFeature   UserFeature[]
   onboarding    Boolean?
+  label         label[]
 
   @@unique([email])
   @@map("user")
@@ -76,12 +77,23 @@ model Verification {
 }
 
 model UserFeature {
-  id     String      @id @default(uuid())
+  id     String      @id @default(cuid())
   name   String
   shown  Boolean
   type   FeatureType
   userId String
+  href   String?
   user   User        @relation(fields: [userId], references: [id])
+}
+
+model label {
+  id         String  @id @default(cuid())
+  name       String
+  isFavorite Boolean
+  color      String?
+  userId     String
+  item_order Int
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum FeatureType {
